@@ -1,4 +1,6 @@
-# Just a Compiler of Kaleidoscope language with LLVM prject
+# JACK-LLVM
+
+Just a Compiler of Kaleidoscope language with LLVM prject
 
 ## Tips
 
@@ -31,6 +33,8 @@ In VS Code:
     - Settings -> Remote [*] -> Clang-Format configuration
 3. Executable: `/usr/bin/clang-format` (just the path of clang-format)
 
+> This tutorial series requires you are familiar with Modern C++, you can watch [Cherno's C++ playlist](https://www.youtube.com/playlist?list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb) if you are not familiar with Modern C++.
+
 ### 1. Kaleidoscope language and Lexer
 
 Extend the error checking of scanning number:
@@ -43,8 +47,8 @@ if (isdigit(LastChar) || LastChar == '.') {
   do {
     // error checking: incorrect number
     if (LastChar == '.') {
-    if (isdot == true)
-      exit(1);
+      if (isdot == true)
+        fprintf(stderr, "Error: %s\n", "Invalid number");
       isdot = true;
     }
     NumStr += LastChar;
@@ -58,6 +62,27 @@ if (isdigit(LastChar) || LastChar == '.') {
 
 Using a bool flag `isdot` to check if period (.) has benn scanned.
 
+### 2. Implementing a Parser and AST
+
+This chapter uses to many `std::unique_ptr` and `std::move`, if you don't known this, you can watch videos [SMART POINTERS in C++ (std::unique_ptr, std::shared_ptr, std::weak_ptr)][smart-pointers] (for `std::unique_ptr`) and [std::move and the Move Assignment Operator in C++][move] (for `std::move`).
+
+Syntax in this chapter:
+
+```
+primary
+  ::= identifierexpr
+  ::= numberexpr
+  ::= parenexpr
+identifierexpr
+  ::= identifier
+  ::= identifier '(' expression* ')'
+numberexpr ::= number
+parenexpr  ::= '(' expression ')'
+```
+
 ## References
 
 - [My First Language Frontend with LLVM Tutorial](https://llvm.org/docs/tutorial/MyFirstLanguageFrontend/index.html)
+
+[smart-pointers]: https://www.youtube.com/watch?v=UOB7-B2MfwA&list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb&index=43&pp=iAQB
+[move]: https://www.youtube.com/watch?v=OWNeCTd7yQE&list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb&index=90&pp=iAQB
