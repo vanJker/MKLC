@@ -1,6 +1,6 @@
-# JACK-LLVM
+# MKLC
 
-Just a Compiler of Kaleidoscope language with LLVM prject
+Just a Compiler of Kaleidoscope language with LLVM prject.
 
 ## Tips
 
